@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Personal Expense Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/jpg" href="/static/images/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+      
+<div class="hero-head">
+    <nav class="navbar bg-dark">
+        <div class="container">
+
+            <div id="navbarMenuHeroA" class="navbar-menu">
+                
+                <p class="text-white font-weight-bold">Personal Expense Tracker</p>
+               
+                <div class="navbar-end center">
+                    
+                    
+
+                    <a href="{{ url_for('main.index') }}" class="navbar-item">
+                        <p class="text-white">Home</p>
+                    </a>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.addexpenses') }}" class="navbar-item">
+                        <p class="text-white">Add Expenses</p>
+                    </a>
+                    <a href="{{ url_for('main.dashboard') }}" class="navbar-item">
+                        <p class="text-white">Dashboard</p>
+                    </a>
+                    <a href="{{ url_for('main.history') }}" class="navbar-item">
+                        <p class="text-white">History</p>
+                    </a>
+                    <a href="{{ url_for('main.limit') }}" class="navbar-item">
+                        <p class="text-white">Limit</p>
+                    </a>
+                    <a href="{{ url_for('main.report') }}" class="navbar-item">
+                        <p class="text-white">Report</p>
+                    </a>
+                    {% endif %}
+                    {% if not current_user.is_authenticated %}
+                    
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                        <p class="text-white">Login</p>
+                    </a>
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                        <p class="text-white">Sign Up</p>
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                        <p class="text-white"> Logout</p>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<style>
+    body{
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3><b>Add Expense</b></h3>
+            <form action="/addexpense" method="POST">
+                
+                <div class="form-group">
+                     <label for="">Date</label> 
+                     <input class="form-control" type="date" name="date" id="date"></div>
+                <div class="form-group">
+                     <label for="">Time</label> 
+                     <input class="form-control" type="time" name="time" id="time"></div>
+                <div class="form-group"> <label for="">Expense name</label> 
+                    <input class="form-control" type="text" name="expensename" id="expensename">
+                </div>
+                <div class="form-group">
+                     <label for="">Expense Amount</label> 
+                      <input class="form-control"  type="number" min="0" name="amount" id="amount">
+                </div>
+
+                <div class="form-group">
+                    <label for=""></label> 
+                    <select class="form-control" name="paymode" id="paymode">
+                        <option  selected hidden>Pay-Mode</option>
+                        <option name="cash" value="cash">cash</option>
+                        <option name="debitcard" value="debitcard">debitcard</option>
+                        <option name="creditcard" value="creditcard">creditcard</option>
+                        <option name="epayment" value="epayment">epayment</option>
+                        <option name="onlinebanking" value="onlinebanking">onlinebanking</option>
+                    
+                    </select>
+
+                 <div class="form-group">
+                    <label for=""></label>
+                    <select class="form-control" name="category" id="category">
+
+                         <option selected hidden>Category</option>
+                        <option   name = "food" value="food">food</option>
+                        <option name = "entertainment" value="entertainment">Entertainment</option>
+                        <option name = "business" value="business">Business</option>
+                        <option name ="rent" value="rent">Rent</option>
+                        <option name = "EMI" value="EMI">EMI</option>
+                        <option name = "other" value="other">other</option>
+            
+                    </select>
+                </div>
+
+                <input class="btn btn-danger" type="submit" value="Add" id="">
+        
+            </form>
+            
+            <div  style="position: relative; left: 690px; top: -460px;" class="imagge">
+                <img width="90%" height="90%" src="/static/images/expenses.webp" class="rounded float-left" alt="...">
+
+               </div>
+              
+        </div>
+    </div>
+    
+</div>
+</body>
+</html>
